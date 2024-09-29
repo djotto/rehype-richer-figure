@@ -1,0 +1,44 @@
+{
+  "name": "rehype-richer-figure",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Rehype plugin to create a <figure> semantic structure",
+  "main": "index.ts",
+  "dependencies": {
+    "rehype": "^13.0.2",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.13",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3",
+    "rehype-parse": "^9.0.1",
+    "rehype-stringify": "^10.0.1",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
+    "unified": "^11.0.5"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "format": "npx prettier . --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/djotto/rehype-richer-figure.git"
+  },
+  "keywords": [
+    "rehype",
+    "rehype-plugin",
+    "unifiedjs",
+    "html-figure",
+    "html-figcaption"
+  ],
+  "author": "David Otton <david@otton.org> (https://otton.org)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djotto/rehype-richer-figure/issues"
+  },
+  "homepage": "https://github.com/djotto/rehype-richer-figure#readme"
+}
