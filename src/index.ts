@@ -7,6 +7,13 @@ interface Options {
   figureClass?: string[];
 }
 
+class BadElement extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "BadTree";
+  }
+}
+
 /**
  * Type guard to check if a node is an Element.
  *
@@ -82,16 +89,17 @@ export default function rehypeRicherFigure(config?: Options) {
         /* Reject any <p> Elements that don't have a parent node. */
         /* istanbul ignore if */
         if (!parent) {
-          return; // Don't think this can happen in normal documents. Belt and braces.
+          // Don't think this can happen in normal documents. Belt and braces.
+          throw new BadElement("The element does not have a parent");
         }
 
         /* Reject anything that isn't <p><img></p> */
         if (countChildrenByType(node, "element") !== 1) {
-          return; // Reject <p> Elements that have anything other than a single child element.
+          return; // Only process <p> Elements that have a single child element.
         }
         const firstChild = node.children.find(isElement) as Element;
         if (firstChild.tagName !== "img") {
-          return; // Reject <p> elements where the child isn't an <img>.
+          return; // Only process <p> elements where the child is an <img>.
         }
 
         // If the 'loading' configuration is set, add it to the <img> element
