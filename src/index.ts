@@ -4,6 +4,7 @@ import { Element, Text } from "hast";
 
 interface Options {
   loading?: "eager" | "lazy";
+  figureClass?: string[];
 }
 
 /**
@@ -143,6 +144,11 @@ export default function rehypeRicherFigure(config?: Options) {
             },
           ],
         };
+
+        // If the 'figureClass' configuration is set, add it to the <img> element
+        if (config?.figureClass) {
+          figureElement.properties.class = config.figureClass;
+        }
 
         // Strip the leading ':' and any whitespace from the <figcaption>
         const figcaptionElement = figureElement.children[1] as Element;

@@ -89,9 +89,9 @@ describe("rehypeRicherFigure Plugin", () => {
   test("loading attribute is overridden", async () => {
     // Overrides processor in parent scope to inject config.
     const processor = unified()
-        .use(rehypeParse, { fragment: true })
-        .use(rehypeRicherFigure, { loading: "eager" })
-        .use(rehypeStringify);
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeRicherFigure, { loading: "eager" })
+      .use(rehypeStringify);
 
     // Overrides processor in parent scope to inject config.
     const inputHtml = `
@@ -101,6 +101,33 @@ describe("rehypeRicherFigure Plugin", () => {
     const expectedOutput = `
       <figure>
         <img src="Image.jpg" width="640" height="480" loading="eager" alt="Alt text">
+        <figcaption>Caption text</figcaption>
+      </figure>
+    `;
+
+    const result = await processor.process(inputHtml);
+
+    const normalizedExpected = normalizeHtml(expectedOutput);
+    const normalizedResult = normalizeHtml(result.toString());
+
+    expect(normalizedResult).toBe(normalizedExpected);
+  });
+
+  test("figure class can be added", async () => {
+    // Overrides processor in parent scope to inject config.
+    const processor = unified()
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeRicherFigure, { figureClass: ["yan", "tan", "tethera"] })
+      .use(rehypeStringify);
+
+    // Overrides processor in parent scope to inject config.
+    const inputHtml = `
+      <p><img src="Image.jpg" alt="Alt text"></p>
+      <p>: Caption text</p>
+    `;
+    const expectedOutput = `
+      <figure class="yan tan tethera">
+        <img src="Image.jpg" alt="Alt text">
         <figcaption>Caption text</figcaption>
       </figure>
     `;
