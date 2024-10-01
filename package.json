@@ -1,9 +1,10 @@
 {
   "name": "rehype-richer-figure",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "Rehype plugin to create a <figure> semantic structure",
-  "main": "index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "rehype": "^13.0.2",
     "unist-util-visit": "^5.0.0"

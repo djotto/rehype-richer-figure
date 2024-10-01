@@ -82,7 +82,7 @@ Accepts an optional config object with the following optional properties:
 import { unified } from "unified";
 import rehypeParse from "rehype-parse";
 import rehypeStringify from "rehype-stringify";
-import rehypeRicherFigure from "./build/index.js";
+import rehypeRicherFigure from "rehype-richer-figure";
 
 const html =
   '<p><img src="NPG_D23400.jpg" alt="Pencil portrait of Harry Cust (1861-1917) by Violet Manners (1892)">\n' +

@@ -143,3 +143,4 @@ export default function rehypeRicherFigure(config) {
         });
     };
 }
+//# sourceMappingURL=index.js.map

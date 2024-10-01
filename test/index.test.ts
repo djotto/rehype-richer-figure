@@ -3,7 +3,7 @@
 import { unified } from "unified";
 import rehypeParse from "rehype-parse";
 import rehypeStringify from "rehype-stringify";
-import rehypeRicherFigure from "../index";
+import rehypeRicherFigure from "../dist/index.js";
 
 describe("rehypeRicherFigure Plugin", () => {
   const processor = unified()
