@@ -1,6 +1,6 @@
 {
   "name": "rehype-richer-figure",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Rehype plugin to create a <figure> semantic structure",
   "main": "index.ts",
