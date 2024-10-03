@@ -67,6 +67,8 @@ lost.
 Due to this plugin overloading the `:` syntax for definition lists used by some markdown extensions, I recommend
 running it early in your toolchain.
 
+The blank line between the two lines of markdown is required.
+
 Accepts an optional config object with the following optional properties:
 
 ```javascript
