@@ -6,9 +6,9 @@ This package is a [unified](https://github.com/unifiedjs/unified) ([rehype](http
 to assist in adding rich captions to figures.
 
 **unified** is a project that transforms content with abstract syntax trees (ASTs). **rehype** adds support for HTML to
-unified.
+**unified**.
 
-The `rehype-richer-figure` plugin searches a unified AST for a specific non-semantic structure, and transforms it into
+The `rehype-richer-figure` plugin searches a **unified** AST for a specific non-semantic structure, and transforms it into
 a semantic structure.
 
 It searches for and transforms this HTML:
@@ -32,7 +32,7 @@ into this HTML:
 
 `rehype-richer-figure` was written to be embedded in a [Quartz](https://quartz.jzhao.xyz/) application. Quartz is a
 static site generator that is most commonly used to generate HTML views of [Obsidian](https://obsidian.md/) vaults. It
-may be useful whenever you're using unified to convert Markdown to HTML and want a way to produce &lt;figure&gt;
+may be useful whenever you're using **unified** to convert Markdown to HTML and want a way to produce &lt;figure&gt;
 structures with rich captions.
 
 When used as part of a complete markdown-to-HTML pipeline, it transforms this markdown:
@@ -71,10 +71,12 @@ The blank line between the two lines of markdown is required.
 
 Accepts an optional config object with the following optional properties:
 
-```javascript
+```ts
 {
   loading?: "eager" | "lazy"; // Controls the loading attribute of the `<img>` tag.
   figureClass?: string[]; // Classes to add to the <figure> element.
+  wrap?: boolean; // If true, wrap a <div> around the <figure>
+  wrapClass?: string[]; // Classes to add to the wrapping <div> element.
 }
 ```
 

@@ -227,6 +227,65 @@ describe("rehypeRicherFigure Plugin", () => {
     expect(normalizedResult).toBe(normalizedExpected);
   });
 
+  test("adds wrapping div when config is provided", async () => {
+    // Overrides processor in parent scope to inject config.
+    const processor = unified()
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeRicherFigure, { wrap: true })
+      .use(rehypeStringify);
+
+    const inputHtml = `
+      <p><img src="Image.jpg" alt="Alt text"></p>
+      <p>: Caption text</p>
+    `;
+    const expectedOutput = `
+      <div>
+        <figure>
+          <img src="Image.jpg" alt="Alt text">
+          <figcaption>Caption text</figcaption>
+        </figure>
+      </div>
+    `;
+
+    const result = await processor.process(inputHtml);
+
+    const normalizedExpected = normalizeHtml(expectedOutput);
+    const normalizedResult = normalizeHtml(result.toString());
+
+    expect(normalizedResult).toBe(normalizedExpected);
+  });
+
+  test("adds wrapping div with classes when config is provided", async () => {
+    // Overrides processor in parent scope to inject config.
+    const processor = unified()
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeRicherFigure, {
+        wrap: true,
+        wrapClass: ["yan", "tan", "tethera"],
+      })
+      .use(rehypeStringify);
+
+    const inputHtml = `
+      <p><img src="Image.jpg" alt="Alt text"></p>
+      <p>: Caption text</p>
+    `;
+    const expectedOutput = `
+      <div class="yan tan tethera">
+        <figure>
+          <img src="Image.jpg" alt="Alt text">
+          <figcaption>Caption text</figcaption>
+        </figure>
+      </div>
+    `;
+
+    const result = await processor.process(inputHtml);
+
+    const normalizedExpected = normalizeHtml(expectedOutput);
+    const normalizedResult = normalizeHtml(result.toString());
+
+    expect(normalizedResult).toBe(normalizedExpected);
+  });
+
   /***************************** NEGATIVE TESTS *****************************/
 
   test("does not transform when no caption is provided", async () => {

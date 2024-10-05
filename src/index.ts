@@ -5,6 +5,8 @@ import { Element, Text } from "hast";
 interface Options {
   loading?: "eager" | "lazy";
   figureClass?: string[];
+  wrap?: boolean;
+  wrapClass?: string[];
 }
 
 class BadElement extends Error {
@@ -90,7 +92,9 @@ export default function rehypeRicherFigure(config?: Options) {
         /* istanbul ignore if */
         if (!parent) {
           // Don't think this can happen in normal documents. Belt and braces.
-          throw new BadElement("The element does not have a parent");
+          throw new BadElement(
+            `The ${node.tagName} element does not have a parent`,
+          );
         }
 
         /* Reject anything that isn't <p><img></p> */
@@ -165,8 +169,27 @@ export default function rehypeRicherFigure(config?: Options) {
           figcaptionFirstChild.value,
         );
 
-        // Replace everything between the first and second <p>, inclusive
-        parent.children.splice(index, i - index + 1, figureElement);
+        // If wrap isn't set, we're done.
+        if (config?.wrap !== true) {
+          // Replace everything between the first and second <p>, inclusive
+          parent.children.splice(index, i - index + 1, figureElement);
+          return;
+        }
+
+        // Create a new <div> element
+        const wrapElement: Element = {
+          type: "element",
+          tagName: "div",
+          properties: {},
+          children: [figureElement],
+        };
+
+        // If the 'wrapClass' configuration is set, add it to the <div> element
+        if (config?.wrapClass) {
+          wrapElement.properties.class = config.wrapClass;
+        }
+
+        parent.children.splice(index, i - index + 1, wrapElement);
       },
     );
   };

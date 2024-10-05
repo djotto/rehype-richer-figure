@@ -74,7 +74,7 @@ export default function rehypeRicherFigure(config) {
             /* istanbul ignore if */
             if (!parent) {
                 // Don't think this can happen in normal documents. Belt and braces.
-                throw new BadElement("The element does not have a parent");
+                throw new BadElement(`The ${node.tagName} element does not have a parent`);
             }
             /* Reject anything that isn't <p><img></p> */
             if (countChildrenByType(node, "element") !== 1) {
@@ -138,8 +138,24 @@ export default function rehypeRicherFigure(config) {
             const figcaptionElement = figureElement.children[1];
             const figcaptionFirstChild = figcaptionElement.children[0];
             figcaptionFirstChild.value = cleanCaptionText(figcaptionFirstChild.value);
-            // Replace everything between the first and second <p>, inclusive
-            parent.children.splice(index, i - index + 1, figureElement);
+            // If wrap isn't set, we're done.
+            if (config?.wrap !== true) {
+                // Replace everything between the first and second <p>, inclusive
+                parent.children.splice(index, i - index + 1, figureElement);
+                return;
+            }
+            // Create a new <div> element
+            const wrapElement = {
+                type: "element",
+                tagName: "div",
+                properties: {},
+                children: [figureElement],
+            };
+            // If the 'wrapClass' configuration is set, add it to the <div> element
+            if (config?.wrapClass) {
+                wrapElement.properties.class = config.wrapClass;
+            }
+            parent.children.splice(index, i - index + 1, wrapElement);
         });
     };
 }

@@ -2,6 +2,8 @@ import { Node } from "unist";
 interface Options {
     loading?: "eager" | "lazy";
     figureClass?: string[];
+    wrap?: boolean;
+    wrapClass?: string[];
 }
 /**
  * A rehype plugin to assist in adding rich captions to figures.
